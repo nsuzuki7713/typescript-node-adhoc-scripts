@@ -46,6 +46,9 @@
     ]
   },
   "dependencies": {
-    "iconv-lite": "^0.5.1"
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "iconv-lite": "^0.5.1",
+    "node-html-parser": "^1.2.20"
   }
 }
