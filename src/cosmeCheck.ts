@@ -14,8 +14,19 @@ let errorCount = 0;
     }
     await sleep(60000);
   }
-})().catch((e) => {
+})().catch(async (e) => {
   console.log(e);
+  const options: AxiosRequestConfig = {
+    method: 'post',
+    baseURL: process.env.TEST_SLACK_URL,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    data: `{
+          "text": "<@${process.env.USER_ID_NO}> コスメチェックが失敗しました}",
+        }`,
+  };
+  await axios.request(options);
 });
 
 // 2020/08/08 23:19時点での商品リスト
@@ -73,7 +84,6 @@ async function main() {
           }`,
     };
     try {
-      console.log(options);
       await axios.request(options);
 
       return true;
