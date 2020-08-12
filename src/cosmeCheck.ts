@@ -31,8 +31,7 @@ let errorCount = 0;
 
 // 2020/08/08 23:19時点での商品リスト
 const currentItems = [
-  'NEW!  Crickets *Limit 1 per customer*',
-  'NEW!  Illicit Affairs *Limit 1 per customer*',
+  'NEW!  Illicit Affairs',
   'Moder',
   'Quick Convo',
   'Beauxbatons',
