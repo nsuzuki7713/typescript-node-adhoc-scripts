@@ -91,7 +91,7 @@ async function main() {
       throw err;
     }
   } else {
-    console.log('追加されませんでした');
+    console.log('追加されませんでした', new Date());
   }
 }
 
