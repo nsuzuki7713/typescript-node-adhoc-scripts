@@ -1,25 +1,46 @@
-// 参照: https://maku.blog/p/7r6gr3d/P
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Octokit } from '@octokit/rest';
-import { Endpoints } from '@octokit/types';
+import dotenv from 'dotenv';
 
-type listOrgsReposResponse = Endpoints['GET /orgs/:org/repos']['response'];
+dotenv.config();
+const octokit = new Octokit({
+  auth: process.env.GIHUB_ACCESS_TOKEN,
+});
 
-(async () => {
-  const octokit = new Octokit();
+const owner = 'nsuzuki7713';
+const repo = 'typescript-node-adhoc-scripts';
 
-  const response = await octokit.repos.listForOrg({
-    org: 'sony', // 取得対象とする組織 (organization)
-    type: 'public', // public なリポジトリのみ取得
-    sort: 'full_name', // レスポンスの data 配列を full_name でソート
-    per_page: 5, // 1リクエストごとのデータ数（デフォルト:30、最大:100）
+const fetchShaFromBranch = async (branch: string): Promise<string> => {
+  const { data } = await octokit.repos.getBranch({
+    owner,
+    repo,
+    branch,
+  });
+  return data.commit.sha;
+};
+
+const createTag = async (branch: string, tagName: string) => {
+  const sha = await fetchShaFromBranch(branch);
+
+  await octokit.git.createTag({
+    owner,
+    repo,
+    tag: tagName,
+    message: '',
+    object: sha,
+    type: 'commit',
   });
 
-  const data = response.data as listOrgsReposResponse['data'];
+  await octokit.git.createRef({
+    owner,
+    repo,
+    ref: `refs/tags/${tagName}`,
+    sha,
+  });
+};
 
-  for (const repo of data) {
-    console.log(`${repo.full_name} - ${repo.description}`);
-  }
+(async () => {
+  await createTag('master', `test-tag-${Date.now()}`);
 })().catch((e) => {
   console.log(e);
 });
