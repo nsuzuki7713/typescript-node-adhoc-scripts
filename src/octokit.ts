@@ -71,13 +71,32 @@ const createRelease = async (tagName: string): Promise<void> => {
   });
 };
 
-// const createIssue()
+const createIssue = async (tagName: string) => {
+  const list = await getPullRequestMergingList(tagName, 'master');
+
+  let body: string[] = [];
+  body.push('# テストリリースのbody');
+  body.push('## リリース内容');
+  body.push('| プルリク | 内容 |');
+  body.push('| -- | -- |');
+  list.forEach(({ pullRequestNumber, message }) => {
+    body.push(`| ${pullRequestNumber} | ${message} |`);
+  });
+
+  await octokit.issues.create({
+    owner,
+    repo,
+    title: 'issueテスト',
+    body: body.join('\n'),
+  });
+};
 // const createPullRequest()
 
 (async () => {
   // await createTag('master', `test-tag-${Date.now()}`);
   // console.log(await getPullRequestMergingList('test-tag-1598708009047', 'master'));
-  await createRelease('test-tag-1598708009047');
+  // await createRelease('test-tag-1598708009047');
+  await createIssue('test-tag-1598708009047');
 })().catch((e) => {
   console.log(e);
 });
