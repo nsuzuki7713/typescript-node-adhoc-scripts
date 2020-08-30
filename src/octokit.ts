@@ -50,9 +50,34 @@ const getPullRequestMergingList = async (base: string, head: string): Promise<Pu
   }, [] as PullRequestList[]);
 };
 
+const createRelease = async (tagName: string): Promise<void> => {
+  const list = await getPullRequestMergingList(tagName, 'master');
+
+  let body: string[] = [];
+  body.push('# テストリリースのbody');
+  body.push('## リリース内容');
+  body.push('| プルリク | 内容 |');
+  body.push('| -- | -- |');
+  list.forEach(({ pullRequestNumber, message }) => {
+    body.push(`| ${pullRequestNumber} | ${message} |`);
+  });
+
+  await octokit.repos.createRelease({
+    owner,
+    repo,
+    tag_name: tagName,
+    name: 'テストリリースのタイトル',
+    body: body.join('\n'),
+  });
+};
+
+// const createIssue()
+// const createPullRequest()
+
 (async () => {
   // await createTag('master', `test-tag-${Date.now()}`);
-  console.log(await getPullRequestMergingList('test-tag-1598708009047', 'master'));
+  // console.log(await getPullRequestMergingList('test-tag-1598708009047', 'master'));
+  await createRelease('test-tag-1598708009047');
 })().catch((e) => {
   console.log(e);
 });
