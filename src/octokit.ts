@@ -123,13 +123,29 @@ const listPulls = async () => {
   }
 };
 
+const listIssues = async () => {
+  const { data } = await octokit.issues.listForRepo({
+    owner,
+    repo,
+    state: 'all',
+    per_page: 100,
+  });
+
+  for (const datum of data) {
+    if (!datum.pull_request) {
+      console.log(datum.title);
+    }
+  }
+};
+
 (async () => {
   // await createTag('master', `test-tag-${Date.now()}`);
   // console.log(await getPullRequestMergingList('test-tag-1598708009047', 'master'));
   // await createRelease('test-tag-1598708009047');
   // await createIssue('test-tag-1598708009047');
   // await createPulls('master', 'feature/octokit');
-  await listPulls();
+  // await listPulls();
+  await listIssues();
 })().catch((e) => {
   console.log(e);
 });
