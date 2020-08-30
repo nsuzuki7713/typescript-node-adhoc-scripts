@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Octokit } from '@octokit/rest';
 import dotenv from 'dotenv';
+import moment from 'moment';
 
 dotenv.config();
 const octokit = new Octokit({
@@ -102,12 +103,33 @@ const createPulls = async (base: string, head: string): Promise<void> => {
   });
 };
 
+const listPulls = async () => {
+  const { data } = await octokit.pulls.list({
+    owner,
+    repo,
+    state: 'all',
+    per_page: 100,
+  });
+
+  for (const datum of data) {
+    const createdAt = moment(datum.created_at);
+    const updatedAt = moment(datum.updated_at);
+    console.log(
+      datum.html_url,
+      datum.title,
+      createdAt.format('YYYY/MM/DD HH:mm:ss'),
+      updatedAt.format('YYYY/MM/DD HH:mm:ss')
+    );
+  }
+};
+
 (async () => {
   // await createTag('master', `test-tag-${Date.now()}`);
   // console.log(await getPullRequestMergingList('test-tag-1598708009047', 'master'));
   // await createRelease('test-tag-1598708009047');
   // await createIssue('test-tag-1598708009047');
-  await createPulls('master', 'feature/octokit');
+  // await createPulls('master', 'feature/octokit');
+  await listPulls();
 })().catch((e) => {
   console.log(e);
 });
