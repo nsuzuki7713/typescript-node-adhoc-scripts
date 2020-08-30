@@ -90,13 +90,24 @@ const createIssue = async (tagName: string) => {
     body: body.join('\n'),
   });
 };
-// const createPullRequest()
+
+const createPulls = async (base: string, head: string): Promise<void> => {
+  await octokit.pulls.create({
+    owner,
+    repo,
+    title: 'プルリクテスト',
+    head,
+    base,
+    body: 'bodyテスト',
+  });
+};
 
 (async () => {
   // await createTag('master', `test-tag-${Date.now()}`);
   // console.log(await getPullRequestMergingList('test-tag-1598708009047', 'master'));
   // await createRelease('test-tag-1598708009047');
-  await createIssue('test-tag-1598708009047');
+  // await createIssue('test-tag-1598708009047');
+  await createPulls('master', 'feature/octokit');
 })().catch((e) => {
   console.log(e);
 });
