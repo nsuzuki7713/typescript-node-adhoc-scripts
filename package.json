@@ -47,13 +47,16 @@
   },
   "dependencies": {
     "@google-cloud/logging-winston": "^4.0.4",
+    "@google-cloud/storage": "^5.8.1",
     "@octokit/rest": "^18.0.4",
+    "@types/uuid": "^8.3.0",
     "aws-sdk": "^2.781.0",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "iconv-lite": "^0.5.1",
     "moment": "^2.27.0",
     "node-html-parser": "^1.2.20",
+    "uuid": "^8.3.2",
     "winston": "^3.3.3"
   }
 }
