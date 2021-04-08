@@ -44,7 +44,14 @@ function convertUse(deposit: string, content: string): string {
     return '入金';
   }
 
-  const funds = ['"MHF)ｳｴﾙｽﾅﾋﾞ"', '"AP(ﾏﾈﾂｸｽﾂﾐﾀﾃ"', '"ｺｸﾐﾝﾈﾝｷﾝｷｷﾝﾚﾝｺﾞｳｶｲ(ｶ"', '"ｼﾖｳｷﾎﾞｶｹｷﾝ"', '"ﾏﾈﾂｸｽｼﾖｳｹﾝ"'];
+  const funds = [
+    '"MHF)ｳｴﾙｽﾅﾋﾞ"',
+    '"AP(ﾏﾈﾂｸｽﾂﾐﾀﾃ"',
+    '"ｺｸﾐﾝﾈﾝｷﾝｷｷﾝﾚﾝｺﾞｳｶｲ(ｶ"',
+    '"ｼﾖｳｷﾎﾞｶｹｷﾝ"',
+    '"ﾏﾈﾂｸｽｼﾖｳｹﾝ"',
+    '"DF.THEOﾂﾐﾀﾃ"',
+  ];
   if (funds.includes(content)) {
     return '資金移動';
   }
