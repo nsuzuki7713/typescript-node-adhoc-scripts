@@ -47,10 +47,12 @@
   },
   "dependencies": {
     "@octokit/rest": "^18.0.4",
+    "@types/lodash": "^4.14.170",
     "aws-sdk": "^2.781.0",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "iconv-lite": "^0.5.1",
+    "lodash": "^4.17.21",
     "moment": "^2.27.0",
     "node-html-parser": "^1.2.20"
   }
