@@ -54,6 +54,7 @@
     "iconv-lite": "^0.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.27.0",
-    "node-html-parser": "^1.2.20"
+    "node-html-parser": "^1.2.20",
+    "yup": "^0.32.9"
   }
 }
