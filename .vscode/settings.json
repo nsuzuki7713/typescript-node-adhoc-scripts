@@ -1,5 +1,5 @@
 {
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll": true
@@ -10,4 +10,5 @@
     "typescript",
     "typescriptreact"
   ],
+  "typescript.tsdk": "node_modules/typescript/lib",
 }
